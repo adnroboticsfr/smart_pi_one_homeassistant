@@ -1,2 +1,2 @@
-# smart_pi_one_homeassistant
-Home Assistant Supervised for Smart Pi One
+# Home Assistant Supervised
+Docker image with home assistant supervised based on Smart Pi One
