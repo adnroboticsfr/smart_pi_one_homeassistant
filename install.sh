@@ -12,6 +12,26 @@ if [ -d "/usr/share/hassio" ]; then
     exit 0
 fi
 
+# Function to check if a package is installed
+function is_package_installed() {
+    local package_name="$1"
+    dpkg -s "$package_name" 2>/dev/null | grep -q "Status: install ok installed"
+}
+
+
+# List of packages to install
+packages=("apparmor" "cifs-utils" "curl" "dbus" "jq" "libglib2.0-bin" "lsb-release" "network-manager" "nfs-common" "udisks2" "wget" "systemd-resolved" "systemd-journal-remote")
+
+# Install only if the package is not installed
+for package in "${packages[@]}"; do
+    if is_package_installed "$package"; then
+        echo -e "\e[1;32m$package is already installed.\e[0m"
+    else
+        sudo apt install "$package" -y
+    fi
+done
+
+
 #Install Docker-CE with the following command:
 curl -fsSL get.docker.com | sh
 
